@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Developer's Journey - Cinematic Translation App
 
-## Getting Started
+A Next.js frontend that tells the story of a developer's journey through immersive animations and a functional translation tool.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Cinematic Landing Page**: 4-scene scroll-based storytelling experience.
+- **Immersive Animations**: Powered by Framer Motion and React Scroll Parallax.
+- **Seamless Transitions**: Smooth page transitions between Story, Auth, and App modes.
+- **Interactive UI**: Glowing effects, staggered text reveals, and micro-interactions.
+- **Functional Translation Dashboard**: Mocked translation API with language switching and copy functionality.
+- **Authentication Flow**: Animated login/register forms with JWT storage (simulated).
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Fonts**: Inter & Outfit (Google Fonts)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd story-translation-frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🐳 Docker Deployment
+
+1. Build and run with Docker Compose:
+   ```bash
+   docker-compose up --build -d
+   ```
+
+2. Access the app at [http://localhost:3000](http://localhost:3000).
+
+## 📂 Project Structure
+
+```
+src/
+├── app/
+│   ├── auth/           # Authentication page
+│   ├── translate/      # Translation dashboard
+│   ├── globals.css     # Global styles & Tailwind
+│   ├── layout.tsx      # Root layout with fonts
+│   └── page.tsx        # Main landing page (Story)
+├── components/
+│   ├── Scene1.tsx      # "The Arrival" scene
+│   ├── Scene2.tsx      # "The Challenge" scene
+│   ├── Scene3.tsx      # "The Discovery" scene
+│   ├── Scene4.tsx      # "The Key" scene
+│   ├── AuthForm.tsx    # Login/Register form
+│   └── TranslationDashboard.tsx # Main app interface
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Animation Details
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Scroll-triggered Reveals**: Text and elements fade in as you scroll.
+- **Parallax**: Background elements move at different speeds in Scene 2.
+- **Typewriter Effect**: Used in Scene 3 for dramatic text presentation.
+- **Glow Effects**: CSS drop-shadows and Framer Motion layout animations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📝 License
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
