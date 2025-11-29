@@ -61,12 +61,15 @@ export default function Home() {
                     transition={{ delay: 0.5, duration: 0.8 }}
                     className="text-center max-w-2xl pointer-events-none"
                 >
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 font-outfit bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 pointer-events-auto">
-                        Welcome to TalAIt
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 font-outfit pointer-events-auto">
+                        <span className="text-white">Space</span>{" "}
+                        <span className="text-orange-400">Translate</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-300 mb-8 pointer-events-auto">
+
+                    <p className="text-xl md:text-2xl text-gray-200 mb-8 pointer-events-auto">
                         Your intelligent translation companion
                     </p>
+
                     <motion.div
                         animate={{ y: [0, 10, 0] }}
                         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
@@ -104,7 +107,7 @@ export default function Home() {
                             transition={{ delay: 0.3 }}
                             className="text-lg text-gray-300"
                         >
-                            Join thousands of users who trust TalAIt for accurate,
+                            Join thousands of users who trust Space Translate for accurate,
                             intelligent translations powered by cutting-edge AI.
                         </motion.p>
                         <motion.ul
