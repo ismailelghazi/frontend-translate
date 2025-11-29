@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useEffect, useState, useCallback } from "react";
 import Earth3D from "./Earth3D";
 
@@ -24,16 +24,6 @@ export default function EnhancedEarth({ onThemeChange, onOpenModal }: EnhancedEa
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    // Transform scroll progress to visual states
-    // 0 -> 0.3: Hero state (Large, Center)
-    // 0.3+: Icon state (Small, Top-Right)
-    const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.12]);
-    const top = useTransform(scrollYProgress, [0, 0.3], ["50%", "2rem"]);
-    const left = useTransform(scrollYProgress, [0, 0.3], ["50%", "calc(100% - 2rem)"]);
-    const x = useTransform(scrollYProgress, [0, 0.3], ["-50%", "-50%"]);
-    const y = useTransform(scrollYProgress, [0, 0.3], ["-50%", "0%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.15, 0.3], [1, 0.9, 1]);
-
     // Theme trigger at 20% scroll
     useEffect(() => {
         const unsubscribe = scrollYProgress.on("change", (latest) => {
@@ -55,15 +45,7 @@ export default function EnhancedEarth({ onThemeChange, onOpenModal }: EnhancedEa
 
     return (
         <motion.div
-            style={{
-                top,
-                left,
-                x,
-                y,
-                scale,
-                opacity,
-            }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 cursor-pointer select-none"
+            className="fixed top-0 right-0 z-0 cursor-pointer select-none -mr-32 -mt-32 opacity-80"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={handleClick}
@@ -74,7 +56,7 @@ export default function EnhancedEarth({ onThemeChange, onOpenModal }: EnhancedEa
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-            <div className="relative w-[80vmin] h-[80vmin] md:w-[60vmin] md:h-[60vmin] max-w-[600px] max-h-[600px]">
+            <div className="relative w-[600px] h-[600px] md:w-[800px] md:h-[800px]">
                 {/* 3D Earth Component */}
                 <div className={`transition-transform duration-300 ${isHovered ? "scale-105" : "scale-100"}`}>
                     <Earth3D isHovered={isHovered} isMobile={isMobile} />

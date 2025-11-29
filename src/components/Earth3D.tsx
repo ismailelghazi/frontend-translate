@@ -14,7 +14,7 @@ export default function Earth3D({ isHovered = false, isMobile = false }: Earth3D
 
     useEffect(() => {
         let phi = 0;
-        let width = 0;
+        let width = canvasRef.current?.offsetWidth || 0;
         const doublePR = window.devicePixelRatio;
 
         if (!canvasRef.current) return;
