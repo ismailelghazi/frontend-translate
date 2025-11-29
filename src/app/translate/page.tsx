@@ -10,17 +10,17 @@ export default function TranslatePage() {
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
 
-    useEffect(() => {
-        // Check for token
-        const token = localStorage.getItem("token");
-        if (!token) {
-            router.push("/auth");
-        } else {
-            setAuthorized(true);
-        }
-    }, [router]);
+    // useEffect(() => {
+    //     // Check for token
+    //     const token = localStorage.getItem("token");
+    //     if (!token) {
+    //         router.push("/");
+    //     } else {
+    //         setAuthorized(true);
+    //     }
+    // }, [router]);
 
-    if (!authorized) return null;
+    // if (!authorized) return null;
 
     return (
         <div className="min-h-screen w-full bg-black text-white relative overflow-hidden flex flex-col">
@@ -33,7 +33,7 @@ export default function TranslatePage() {
                 className="p-6 flex justify-between items-center z-10"
             >
                 <div className="text-2xl font-bold font-outfit bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-                    TalAIt Translate
+                    Space Translate
                 </div>
                 <button
                     onClick={() => {
