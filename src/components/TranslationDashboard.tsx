@@ -23,21 +23,42 @@ export default function TranslationDashboard() {
         setLoading(true);
         setTranslatedText("");
 
-        // Mock delay + translation
-        await new Promise((r) => setTimeout(r, 1200));
-        const mock: Record<string, string> = {
-            hello: "bonjour",
-            world: "monde",
-            bonjour: "hello",
-            monde: "world",
-        };
+        try {
+            const response = await fetch("http://localhost:8000/translate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                // Include credentials (cookies) for authentication
+                credentials: "include",
+                body: JSON.stringify({
+                    text: inputText,
+                    direction: language,
+                }),
+            });
 
-        const result =
-            mock[inputText.toLowerCase()] ||
-            (language === "fr-en" ? `[EN] ${inputText}` : `[FR] ${inputText}`);
+            if (response.status === 401) {
+                alert("Session expired. Please login again.");
+                // Redirect to login
+                window.location.href = "/";
+                return;
+            }
 
-        setTranslatedText(result);
-        setLoading(false);
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert("Translation failed: " + (errorData.detail || "Unknown error"));
+                return;
+            }
+
+            const data = await response.json();
+            setTranslatedText(data.translation_text || data.translation || "Error: No translation returned");
+
+        } catch (error) {
+            console.error("Translation error:", error);
+            alert("Translation error. Is the backend running?");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const copyToClipboard = async () => {

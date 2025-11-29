@@ -18,14 +18,45 @@ export default function AuthForm({ isAlertTheme = false }: AuthFormProps) {
         e.preventDefault();
         setLoading(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const endpoint = isLogin ? "http://localhost:8000/login" : "http://localhost:8000/register";
 
-        // Store fake token
-        localStorage.setItem("token", "fake-jwt-token");
+        // Get form data
+        const formData = new FormData(e.target as HTMLFormElement);
+        const username = formData.get("username") as string; // We'll need to add name="username" to input
+        const password = formData.get("password") as string; // We'll need to add name="password" to input
 
-        setLoading(false);
-        router.push("/translate");
+        try {
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include", // Important for cookies
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert(errorData.detail || "Authentication failed");
+                setLoading(false);
+                return;
+            }
+
+            // If login/register successful
+            if (isLogin) {
+                // Cookie is set by backend, just redirect
+                router.push("/translate");
+            } else {
+                // If registered, switch to login or auto-login (for now just switch to login view)
+                alert("Registration successful! Please login.");
+                setIsLogin(true);
+            }
+        } catch (error) {
+            console.error("Auth error:", error);
+            alert("An error occurred. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Dynamic colors based on theme
@@ -71,23 +102,12 @@ export default function AuthForm({ isAlertTheme = false }: AuthFormProps) {
                     onSubmit={handleSubmit}
                     className="space-y-6"
                 >
-                    {!isLogin && (
-                        <div className="relative">
-                            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                required
-                                className={`w-full bg-black/20 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 ${focusRing} transition-all`}
-                            />
-                        </div>
-                    )}
-
                     <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
-                            type="email"
-                            placeholder="Email"
+                            name="username"
+                            type="text"
+                            placeholder="Username"
                             required
                             className={`w-full bg-black/20 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 ${focusRing} transition-all`}
                         />
@@ -96,6 +116,7 @@ export default function AuthForm({ isAlertTheme = false }: AuthFormProps) {
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
+                            name="password"
                             type="password"
                             placeholder="Password"
                             required

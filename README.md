@@ -60,7 +60,6 @@ A Next.js frontend that tells the story of a developer's journey through immersi
 ```
 src/
 ├── app/
-│   ├── auth/           # Authentication page
 │   ├── translate/      # Translation dashboard
 │   ├── globals.css     # Global styles & Tailwind
 │   ├── layout.tsx      # Root layout with fonts

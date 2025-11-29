@@ -10,17 +10,32 @@ export default function TranslatePage() {
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
 
-    // useEffect(() => {
-    //     // Check for token
-    //     const token = localStorage.getItem("token");
-    //     if (!token) {
-    //         router.push("/");
-    //     } else {
-    //         setAuthorized(true);
-    //     }
-    // }, [router]);
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await fetch("http://localhost:8000/me", {
+                    credentials: "include" // Send cookies
+                });
+                if (res.ok) {
+                    setAuthorized(true);
+                } else {
+                    router.push("/");
+                }
+            } catch (error) {
+                console.error("Auth check failed", error);
+                router.push("/");
+            }
+        };
+        checkAuth();
+    }, [router]);
 
-    // if (!authorized) return null;
+    if (!authorized) {
+        return (
+            <div className="min-h-screen w-full bg-black flex items-center justify-center text-white">
+                Loading...
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen w-full bg-black text-white relative overflow-hidden flex flex-col">
@@ -36,8 +51,15 @@ export default function TranslatePage() {
                     Space Translate
                 </div>
                 <button
-                    onClick={() => {
-                        localStorage.removeItem("token");
+                    onClick={async () => {
+                        try {
+                            await fetch("http://localhost:8000/logout", {
+                                method: "POST",
+                                credentials: "include"
+                            });
+                        } catch (e) {
+                            console.error("Logout failed", e);
+                        }
                         router.push("/");
                     }}
                     className="text-sm text-gray-400 hover:text-white transition-colors"
