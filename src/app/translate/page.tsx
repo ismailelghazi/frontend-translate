@@ -13,7 +13,7 @@ export default function TranslatePage() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("https://backend-with-fastapi.vercel.app/me", {
+                const res = await fetch("https://backend-with-fastapi.vercel.app/login", {
                     credentials: "include" // Send cookies
                 });
                 if (res.ok) {
