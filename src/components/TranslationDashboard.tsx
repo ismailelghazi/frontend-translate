@@ -24,7 +24,7 @@ export default function TranslationDashboard() {
         setTranslatedText("");
 
         try {
-            const response = await fetch("http://localhost:8000/translate", {
+            const response = await fetch("https://backend-with-fastapi.vercel.app/translate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

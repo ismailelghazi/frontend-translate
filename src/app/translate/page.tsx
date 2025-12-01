@@ -13,7 +13,7 @@ export default function TranslatePage() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("http://localhost:8000/me", {
+                const res = await fetch("https://backend-with-fastapi.vercel.app/me", {
                     credentials: "include" // Send cookies
                 });
                 if (res.ok) {
@@ -53,7 +53,7 @@ export default function TranslatePage() {
                 <button
                     onClick={async () => {
                         try {
-                            await fetch("http://localhost:8000/logout", {
+                            await fetch("https://backend-with-fastapi.vercel.app/logout", {
                                 method: "POST",
                                 credentials: "include"
                             });

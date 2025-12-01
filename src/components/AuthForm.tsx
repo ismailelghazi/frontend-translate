@@ -18,7 +18,7 @@ export default function AuthForm({ isAlertTheme = false }: AuthFormProps) {
         e.preventDefault();
         setLoading(true);
 
-        const endpoint = isLogin ? "http://localhost:8000/login" : "http://localhost:8000/register";
+        const endpoint = isLogin ? "https://backend-with-fastapi.vercel.app/login" : "https://backend-with-fastapi.vercel.app/register";
 
         // Get form data
         const formData = new FormData(e.target as HTMLFormElement);
