@@ -16,7 +16,12 @@ api.interceptors.response.use(
         if (error.response) {
             // Server responded with error
             const message = error.response.data?.detail || 'An error occurred';
-            console.error('API Error:', message);
+
+            // Don't log expected 401 on /auth/me (initial auth check)
+            const isAuthCheck = error.config?.url === '/auth/me' && error.response.status === 401;
+            if (!isAuthCheck) {
+                console.error('API Error:', message);
+            }
 
             // Handle 401 Unauthorized
             if (error.response.status === 401) {
