@@ -3,11 +3,23 @@ import axios from 'axios';
 // Create axios instance with default config
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
-    withCredentials: true, // Important for HTTP-only cookies
+    withCredentials: true, // Keep for cookie fallback
     headers: {
         'Content-Type': 'application/json',
     },
 });
+
+// Request interceptor to attach Bearer token
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 
 // Response interceptor for error handling
 api.interceptors.response.use(
